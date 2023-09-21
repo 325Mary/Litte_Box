@@ -1,0 +1,11 @@
+create database LitteBox;
+use LitteBox;
+create table Roles(idRoles int(50) primary key not null, NomRoles varchar(100) not null);
+create table Empresa(idEmpresa int auto_increment primary key not null, nitEmpresa int(50) not null, nomEmpresa varchar(100) not null);
+create table Usuario(idUsuario int(50) primary key not null, nomUsuario varchar(100) not null, idRolesFK int(50) not null, idEmpresaFK int(50) not null, foreign key (idRolesFK) references roles(idroles), foreign key (idEmpresaFK) references empresa(idempresa));
+create table Categoria(idCategoria int auto_increment primary key not null,  NomCategoria varchar(100) not null);
+create table Terceros(idTerceros int auto_increment primary key	 not null,  NomTerceros varchar(100) not null, Regimen int(50));
+create table TipoRegistro(idTipo int(50) primary key not null, nomRegistro varchar(100));
+create table RegistroDeSolicitudes(idRegS int auto_increment primary key not null,  Valor int(50) not null,idTipoFK int(50), idUsuarioFK int(50) not null, idCategoriaFK int(50) not null, idTercerosFK int(50) not null,foreign key (idTipoFK) references 	TipoRegistro(idTipo), foreign key (idUsuarioFK) references usuario(idusuario), foreign key (idCategoriaFK) references categoria(idCategoria), foreign key (idTercerosFK) references Terceros(idTerceros));
+create table Estados(idEstados int(50) primary key not null, nomEstado varchar(100));
+create table Movimiento(idMov int auto_increment primary key not null, fechaMov date not null, hora time not null, Monto int(50) not null, DocSoporte varchar(100) not null, idRegSFK int(50) not null, idEstadosFK int(50), foreign key (idRegSFK) references RegistroDeSolicitudes(idRegS), foreign key (idEstadosFK) references Estados(idEstados));
